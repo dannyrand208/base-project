@@ -13,7 +13,8 @@ import {
   DeleteOutlined,
   UserAddOutlined,
 } from '@ant-design/icons'
-import { useUsers, useDeleteUser, type User } from '../hooks/useUsers'
+import { useUsers, useDeleteUser } from '../hooks/useUsers'
+import type { User } from '../types'
 
 const { Title } = Typography
 

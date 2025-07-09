@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
+import type { RouterContext } from './shared/types/router'
 
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'

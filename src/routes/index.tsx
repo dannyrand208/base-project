@@ -6,7 +6,7 @@ import {
   DatabaseOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-import UsersList from '../components/UsersList'
+import UsersList from '../features/users/components/UsersList'
 
 const { Title, Paragraph } = Typography
 
@@ -131,7 +131,7 @@ function App() {
         {/* Demo Alert */}
         <Alert
           message="Demo Component Below"
-          description="The UsersList component demonstrates TanStack Query + Axios + Ant Design integration. Note: API calls will fail until you configure a real backend endpoint in src/lib/api.ts"
+          description="The UsersList component demonstrates TanStack Query + Axios + Ant Design integration. Note: API calls will fail until you configure a real backend endpoint in src/shared/lib/api.ts"
           type="info"
           showIcon
           className="mb-6"
