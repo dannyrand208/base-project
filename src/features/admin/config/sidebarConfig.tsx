@@ -45,9 +45,5 @@ export const adminSidebarConfig = {
   title: 'Admin Panel',
   logo: <HomeOutlined className="text-white text-lg" />,
   menuItems: adminMenuItems,
-  userInfo: {
-    name: 'Admin User',
-    email: 'admin@example.com',
-  },
   theme: 'dark' as const,
 }

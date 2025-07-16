@@ -1,12 +1,12 @@
 import React from 'react'
-import { UserOutlined } from '@ant-design/icons'
-import type { ReactNode } from 'react'
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
+import { useAuth } from '../../../../features/auth/context/AuthContext'
 
 interface SidebarUserInfoProps {
   userInfo?: {
     name: string
     email: string
-    avatar?: ReactNode
+    avatar?: React.ReactNode
   }
   collapsed: boolean
 }
@@ -15,6 +15,13 @@ export const SidebarUserInfo: React.FC<SidebarUserInfoProps> = ({
   userInfo,
   collapsed,
 }) => {
+  const { logout } = useAuth()
+
+  const handleLogout = () => {
+    logout()
+    window.location.href = '/login'
+  }
+
   if (!userInfo) return null
 
   return (
@@ -30,6 +37,15 @@ export const SidebarUserInfo: React.FC<SidebarUserInfoProps> = ({
             </p>
             <p className="text-xs text-gray-400 truncate">{userInfo.email}</p>
           </div>
+        )}
+        {!collapsed && (
+          <button
+            onClick={handleLogout}
+            className="p-1 hover:bg-gray-700 rounded transition-colors"
+            title="Logout"
+          >
+            <LogoutOutlined className="text-gray-400 hover:text-white text-sm" />
+          </button>
         )}
       </div>
     </div>

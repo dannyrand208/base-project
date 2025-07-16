@@ -1,6 +1,6 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import AdminLayout from '../features/admin/layouts/AdminLayout'
+import { AuthProvider } from '../features/auth/context/AuthContext'
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -9,9 +9,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <AdminLayout>
+      <AuthProvider>
         <Outlet />
-      </AdminLayout>
+      </AuthProvider>
       <TanStackRouterDevtools />
     </>
   )
