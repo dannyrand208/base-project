@@ -7,7 +7,7 @@ import {
   DollarOutlined,
 } from '@ant-design/icons'
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_app/')({
   component: AdminDashboard,
 })
 
