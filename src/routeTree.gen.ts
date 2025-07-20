@@ -14,6 +14,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AppUsersRouteImport } from './routes/_app/users'
+import { Route as AppLanguagesRouteImport } from './routes/_app/languages'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/_auth',
@@ -38,13 +39,20 @@ const AppUsersRoute = AppUsersRouteImport.update({
   path: '/users',
   getParentRoute: () => AppRoute,
 } as any)
+const AppLanguagesRoute = AppLanguagesRouteImport.update({
+  id: '/languages',
+  path: '/languages',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
+  '/languages': typeof AppLanguagesRoute
   '/users': typeof AppUsersRoute
   '/login': typeof AuthLoginRoute
   '/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
+  '/languages': typeof AppLanguagesRoute
   '/users': typeof AppUsersRoute
   '/login': typeof AuthLoginRoute
   '/': typeof AppIndexRoute
@@ -53,19 +61,21 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/_auth': typeof AuthRouteWithChildren
+  '/_app/languages': typeof AppLanguagesRoute
   '/_app/users': typeof AppUsersRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/users' | '/login' | '/'
+  fullPaths: '/languages' | '/users' | '/login' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/users' | '/login' | '/'
+  to: '/languages' | '/users' | '/login' | '/'
   id:
     | '__root__'
     | '/_app'
     | '/_auth'
+    | '/_app/languages'
     | '/_app/users'
     | '/_auth/login'
     | '/_app/'
@@ -113,15 +123,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppUsersRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/languages': {
+      id: '/_app/languages'
+      path: '/languages'
+      fullPath: '/languages'
+      preLoaderRoute: typeof AppLanguagesRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppLanguagesRoute: typeof AppLanguagesRoute
   AppUsersRoute: typeof AppUsersRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppLanguagesRoute: AppLanguagesRoute,
   AppUsersRoute: AppUsersRoute,
   AppIndexRoute: AppIndexRoute,
 }
