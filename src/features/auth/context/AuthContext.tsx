@@ -1,14 +1,19 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { authApi } from '../api/authApi'
 
 interface User {
-  email: string
+  username: string
   name: string
   role: string
+  email?: string
 }
 
 interface AuthContextType {
   user: User | null
-  login: (email: string, password: string) => Promise<boolean>
+  login: (
+    username: string,
+    password: string,
+  ) => Promise<{ success: boolean; message?: string }>
   logout: () => void
   isLoading: boolean
 }
@@ -33,37 +38,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsLoading(false)
   }, [])
 
-  const login = async (email: string, password: string) => {
-    const users = [
-      {
-        email: 'admin@example.com',
-        password: 'password',
-        name: 'Admin User',
-        role: 'admin',
-      },
-      {
-        email: 'user@example.com',
-        password: 'password',
-        name: 'Regular User',
-        role: 'user',
-      },
-    ]
+  const login = async (username: string, password: string) => {
+    try {
+      const result = await authApi.login({ username, password })
 
-    const foundUser = users.find(
-      (u) => u.email === email && u.password === password,
-    )
-
-    if (foundUser) {
-      const userData = {
-        email: foundUser.email,
-        name: foundUser.name,
-        role: foundUser.role,
+      if (result.success && result.user) {
+        const userData = {
+          username: result.user.username,
+          name: result.user.name,
+          role: result.user.role,
+          email: result.user.email,
+        }
+        setUser(userData)
+        localStorage.setItem('auth_user', JSON.stringify(userData))
+        return { success: true }
+      } else {
+        return {
+          success: false,
+          message: result.message || 'Login failed',
+        }
       }
-      setUser(userData)
-      localStorage.setItem('auth_user', JSON.stringify(userData))
-      return true
+    } catch (error) {
+      console.error('Login error:', error)
+      return {
+        success: false,
+        message: 'An unexpected error occurred',
+      }
     }
-    return false
   }
 
   const logout = () => {

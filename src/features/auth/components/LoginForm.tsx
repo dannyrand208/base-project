@@ -11,15 +11,15 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate()
   const { login } = useAuth()
 
-  const onFinish = async (values: { email: string; password: string }) => {
+  const onFinish = async (values: { username: string; password: string }) => {
     setLoading(true)
-    const success = await login(values.email, values.password)
+    const result = await login(values.username, values.password)
     setLoading(false)
-    if (success) {
+    if (result.success) {
       message.success('Login successful!')
       navigate({ to: '/' })
     } else {
-      message.error('Invalid email or password')
+      message.error(result.message || 'Invalid username or password')
     }
   }
 
@@ -45,22 +45,21 @@ const LoginForm: React.FC = () => {
             size="large"
             autoComplete="off"
             initialValues={{
-              email: 'admin@example.com',
-              password: 'password',
+              username: 'username123',
+              password: 'password123',
             }}
           >
             <Form.Item
-              name="email"
-              label="Email"
+              name="username"
+              label="Username"
               rules={[
-                { required: true, message: 'Please enter your email' },
-                { type: 'email', message: 'Please enter a valid email' },
+                { required: true, message: 'Please enter your username' },
               ]}
             >
               <Input
                 prefix={<UserOutlined className="text-gray-400" />}
-                placeholder="Enter your email"
-                autoComplete="email"
+                placeholder="Enter your username"
+                autoComplete="username"
               />
             </Form.Item>
 
