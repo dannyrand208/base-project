@@ -5,6 +5,7 @@ import {
   DashboardOutlined,
   ShoppingCartOutlined,
   FileTextOutlined,
+  TranslationOutlined,
 } from '@ant-design/icons'
 import type { MenuItem } from '../../../shared/components/Sidebar'
 
@@ -20,6 +21,12 @@ export const adminMenuItems: MenuItem[] = [
     icon: <UserOutlined className="text-lg" />,
     label: 'Users',
     path: '/users',
+  },
+  {
+    key: 'languages',
+    icon: <TranslationOutlined className="text-lg" />,
+    label: 'Languages',
+    path: '/languages',
   },
   {
     key: 'products',
