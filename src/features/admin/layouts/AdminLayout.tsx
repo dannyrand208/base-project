@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Sidebar } from '../../../shared/components/Sidebar'
 import { adminSidebarConfig } from '../config/sidebarConfig'
+import { useAuth } from '../../auth/context/AuthContext'
 
 interface AdminLayoutProps {
   children: React.ReactNode
@@ -9,11 +10,22 @@ interface AdminLayoutProps {
 export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { user } = useAuth()
+
+  const sidebarConfig = {
+    ...adminSidebarConfig,
+    userInfo: user
+      ? {
+          name: user.name,
+          email: user.email,
+        }
+      : undefined,
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar
-        {...adminSidebarConfig}
+        {...sidebarConfig}
         collapsed={collapsed}
         onCollapse={setCollapsed}
         mobileOpen={mobileOpen}
